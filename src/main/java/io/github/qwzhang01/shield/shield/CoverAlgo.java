@@ -41,7 +41,7 @@ public interface CoverAlgo {
      * This is the main entry point for data masking operations.
      *
      * @param content the sensitive data content to be masked, can be null or
-     *               empty
+     *                empty
      * @return the masked data content, or original content if masking is not
      * applicable
      */

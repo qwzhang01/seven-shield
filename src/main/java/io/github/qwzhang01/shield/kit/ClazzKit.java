@@ -57,7 +57,7 @@ public class ClazzKit {
      *
      * @param obj the object to scan for maskable fields
      * @return a list of MaskField instances representing fields to be masked,
-     *         empty list if object is null or has no maskable fields
+     * empty list if object is null or has no maskable fields
      */
     public static List<MaskField> getMaskFields(Object obj) {
         if (obj == null) {
@@ -129,16 +129,18 @@ public class ClazzKit {
                                 }
 
                                 // Use FieldAccessorCache for high performance
-                                MaskField maskField = 
-                                    io.github.qwzhang01.shield.cache.FieldAccessorCache
-                                        .createMaskField(field, obj, behest,
-                                                maskFlag == null || maskFlag,
-                                                maskAnnotation);
+                                MaskField maskField =
+                                        io.github.qwzhang01.shield.cache.FieldAccessorCache
+                                                .createMaskField(field, obj,
+                                                        behest,
+                                                        maskFlag == null || maskFlag,
+                                                        maskAnnotation);
                                 list.add(maskField);
                             }
                         }
                     } else {
-                        // Field doesn't have @Mask annotation, but still need to 
+                        // Field doesn't have @Mask annotation, but still
+                        // need to
                         // recursively process its nested fields
                         Object fieldValue = field.get(obj);
                         if (fieldValue != null) {
@@ -237,7 +239,7 @@ public class ClazzKit {
      *
      * @param clazz the class to check
      * @return true if the class is complex and needs recursive processing,
-     *         false otherwise
+     * false otherwise
      */
     private static boolean isComplexObject(Class<?> clazz) {
         if (Collection.class.isAssignableFrom(clazz) || Map.class.isAssignableFrom(clazz) || clazz.isArray()) {
@@ -250,8 +252,8 @@ public class ClazzKit {
     /**
      * Processes all elements in a collection recursively.
      *
-     * @param collection the collection to process
-     * @param maskFlag the masking flag from parent context
+     * @param collection         the collection to process
+     * @param maskFlag           the masking flag from parent context
      * @param parentFieldHasMask whether the parent field has @Mask annotation
      * @return list of MaskField instances found in collection elements
      */
@@ -277,8 +279,8 @@ public class ClazzKit {
     /**
      * Processes all elements in an array recursively.
      *
-     * @param array the array to process
-     * @param maskFlag the masking flag from parent context
+     * @param array              the array to process
+     * @param maskFlag           the masking flag from parent context
      * @param parentFieldHasMask whether the parent field has @Mask annotation
      * @return list of MaskField instances found in array elements
      */
@@ -305,8 +307,8 @@ public class ClazzKit {
      * Processes all values in a map recursively.
      * Note: Only map values are processed, keys are not masked.
      *
-     * @param map the map to process
-     * @param maskFlag the masking flag from parent context
+     * @param map                the map to process
+     * @param maskFlag           the masking flag from parent context
      * @param parentFieldHasMask whether the parent field has @Mask annotation
      * @return list of MaskField instances found in map values
      */

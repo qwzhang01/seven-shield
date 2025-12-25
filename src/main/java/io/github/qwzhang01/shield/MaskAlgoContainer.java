@@ -274,7 +274,7 @@ public final class MaskAlgoContainer {
      *   <li>{@link Encrypt} - value inside Encrypt object is masked</li>
      *   <li>Other types - currently logged and skipped (can be extended)</li>
      * </ul>
-     * 
+     *
      * <p>Performance note: This version uses MethodHandle for ~10x faster
      * field access compared to traditional reflection.</p>
      *
@@ -293,7 +293,7 @@ public final class MaskAlgoContainer {
 
         Mask annotation = maskField.annotation();
         Object containingObject = maskField.obj();
-        
+
         // Use high-performance MethodHandle-based access
         if (maskField.isFieldValueNull()) {
             log.debug("Skipping null field: {}", maskField.field().getName());
@@ -320,7 +320,7 @@ public final class MaskAlgoContainer {
         } else {
             // TODO: Support for collections and other complex types
             log.debug("Unsupported field type for masking: {} (field: {})",
-                    maskField.field().getType().getName(), 
+                    maskField.field().getType().getName(),
                     maskField.field().getName());
         }
     }

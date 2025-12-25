@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class ShieldAutoConfig {
-    
+
     /**
      * Provides the MaskAdvice bean for intercepting and masking HTTP
      * responses.
@@ -39,7 +39,7 @@ public class ShieldAutoConfig {
      */
     @Bean
     @ConditionalOnMissingBean(MaskAdvice.class)
-    public MaskAdvice maskAdvice() {
+    public MaskAdvice maskAlgoContainer() {
         return new MaskAdvice(new MaskAlgoContainer());
     }
 
@@ -52,7 +52,7 @@ public class ShieldAutoConfig {
      */
     @Bean
     @ConditionalOnMissingBean(SpringKit.class)
-    public SpringKit springContextUtil() {
+    public SpringKit shieldSpringKit() {
         return new SpringKit();
     }
 
@@ -69,7 +69,7 @@ public class ShieldAutoConfig {
      */
     @Bean
     @ConditionalOnMissingBean(CoverAlgo.class)
-    public CoverAlgo coverAlgo() {
+    public CoverAlgo defaultCoverAlgo() {
         return new DefaultCoverAlgo();
     }
 }

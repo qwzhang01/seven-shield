@@ -36,72 +36,38 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Cache for FieldAccessor instances to avoid repeated MethodHandle creation.
- * 
+ *
  * <p>MethodHandle creation is expensive (though still cheaper than reflection),
  * so we cache the FieldAccessor instances for reuse.</p>
  *
  * <p>Performance benefits:
  * <ul>
- *   <li>First access: Create MethodHandle (~100x faster than uncached reflection)</li>
- *   <li>Subsequent access: Use cached MethodHandle (~10x faster than cached reflection)</li>
+ *   <li>First access: Create MethodHandle (~100x faster than uncached
+ *   reflection)</li>
+ *   <li>Subsequent access: Use cached MethodHandle (~10x faster than cached
+ *   reflection)</li>
  * </ul>
  *
  * @author avinzhang
  * @since 1.1.0
  */
 public final class FieldAccessorCache {
-    private static final Logger log = LoggerFactory.getLogger(FieldAccessorCache.class);
-
-    /**
-     * Cache key combining declaring class and field name.
-     * This ensures we can distinguish fields with the same name in different classes.
-     */
-    private static class CacheKey {
-        private final Class<?> declaringClass;
-        private final String fieldName;
-        private final int hashCode;
-
-        CacheKey(Class<?> declaringClass, String fieldName) {
-            this.declaringClass = declaringClass;
-            this.fieldName = fieldName;
-            // Pre-compute hashCode for performance
-            this.hashCode = 31 * declaringClass.hashCode() + fieldName.hashCode();
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof CacheKey that)) return false;
-            return declaringClass.equals(that.declaringClass) && 
-                   fieldName.equals(that.fieldName);
-        }
-
-        @Override
-        public int hashCode() {
-            return hashCode;
-        }
-
-        @Override
-        public String toString() {
-            return declaringClass.getSimpleName() + "." + fieldName;
-        }
-    }
-
+    private static final Logger log =
+            LoggerFactory.getLogger(FieldAccessorCache.class);
     /**
      * The cache storage using ConcurrentHashMap for thread-safe operations.
      */
-    private static final ConcurrentHashMap<CacheKey, FieldAccessor> CACHE = 
-        new ConcurrentHashMap<>();
-
+    private static final ConcurrentHashMap<CacheKey, FieldAccessor> CACHE =
+            new ConcurrentHashMap<>();
     // Statistics for monitoring
     private static long cacheHits = 0;
     private static long cacheMisses = 0;
-
     /**
      * Private constructor to prevent instantiation.
      */
     private FieldAccessorCache() {
-        throw new UnsupportedOperationException("Utility class cannot be instantiated");
+        throw new UnsupportedOperationException("Utility class cannot be " +
+                "instantiated");
     }
 
     /**
@@ -131,7 +97,8 @@ public final class FieldAccessorCache {
 
     /**
      * Creates a MaskField with cached FieldAccessor.
-     * This is a convenience method that combines cache lookup with MaskField creation.
+     * This is a convenience method that combines cache lookup with MaskField
+     * creation.
      *
      * @param field      the field
      * @param obj        the object
@@ -140,18 +107,21 @@ public final class FieldAccessorCache {
      * @param annotation the Mask annotation
      * @return the MaskField with cached accessor
      */
-    public static MaskField createMaskField(Field field, Object obj, boolean behest,
-                                           boolean maskFlag, 
-                                           io.github.qwzhang01.shield.annotation.Mask annotation) {
+    public static MaskField createMaskField(Field field, Object obj,
+                                            boolean behest,
+                                            boolean maskFlag,
+                                            io.github.qwzhang01.shield.annotation.Mask annotation) {
         FieldAccessor accessor = getAccessor(field);
-        return new MaskField(field, obj, behest, maskFlag, annotation, accessor);
+        return new MaskField(field, obj, behest, maskFlag, annotation,
+                accessor);
     }
 
     /**
      * Clears the cache. Useful for testing or when classes are reloaded.
      */
     public static void clear() {
-        log.info("Clearing FieldAccessor cache. Size: {}, Hits: {}, Misses: {}, Hit Rate: {}%",
+        log.info("Clearing FieldAccessor cache. Size: {}, Hits: {}, Misses: " +
+                        "{}, Hit Rate: {}%",
                 CACHE.size(), cacheHits, cacheMisses, getHitRate());
         CACHE.clear();
         cacheHits = 0;
@@ -202,7 +172,8 @@ public final class FieldAccessorCache {
      */
     public static String getStats() {
         return String.format(
-                "FieldAccessorCache[size=%d, hits=%d, misses=%d, hitRate=%.2f%%]",
+                "FieldAccessorCache[size=%d, hits=%d, misses=%d, hitRate=%" +
+                        ".2f%%]",
                 size(), cacheHits, cacheMisses, getHitRate()
         );
     }
@@ -245,10 +216,47 @@ public final class FieldAccessorCache {
         }
 
         if (removed > 0) {
-            log.debug("Removed {} field accessors for class: {}", 
-                     removed, clazz.getSimpleName());
+            log.debug("Removed {} field accessors for class: {}",
+                    removed, clazz.getSimpleName());
         }
 
         return removed;
+    }
+
+    /**
+     * Cache key combining declaring class and field name.
+     * This ensures we can distinguish fields with the same name in different
+     * classes.
+     */
+    private static class CacheKey {
+        private final Class<?> declaringClass;
+        private final String fieldName;
+        private final int hashCode;
+
+        CacheKey(Class<?> declaringClass, String fieldName) {
+            this.declaringClass = declaringClass;
+            this.fieldName = fieldName;
+            // Pre-compute hashCode for performance
+            this.hashCode =
+                    31 * declaringClass.hashCode() + fieldName.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof CacheKey that)) return false;
+            return declaringClass.equals(that.declaringClass) &&
+                    fieldName.equals(that.fieldName);
+        }
+
+        @Override
+        public int hashCode() {
+            return hashCode;
+        }
+
+        @Override
+        public String toString() {
+            return declaringClass.getSimpleName() + "." + fieldName;
+        }
     }
 }

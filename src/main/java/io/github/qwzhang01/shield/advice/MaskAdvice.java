@@ -51,7 +51,8 @@ import java.io.File;
  * <p>This advice intercepts HTTP responses before they are written to the
  * client and applies data masking to fields annotated with {@link Mask}
  * or its meta-annotations. The masking is controlled by the MaskContext
- * which determines whether masking should be applied for the current request.</p>
+ * which determines whether masking should be applied for the current request
+ * .</p>
  *
  * <p><strong>How It Works:</strong></p>
  * <ol>
@@ -91,8 +92,8 @@ public class MaskAdvice implements ResponseBodyAdvice<Object> {
         // 文件下载
         boolean fileDownload =
                 returnType.getParameterType().equals(InputStreamResource.class) ||
-                returnType.getParameterType().equals(Resource.class) ||
-                returnType.getParameterType().equals(File.class);
+                        returnType.getParameterType().equals(Resource.class) ||
+                        returnType.getParameterType().equals(File.class);
         if (fileDownload) {
             return false;
         }
@@ -100,8 +101,8 @@ public class MaskAdvice implements ResponseBodyAdvice<Object> {
         // flux 响应式结果不包装
         boolean isFlux =
                 Flux.class.isAssignableFrom(returnType.getParameterType())
-                || SseEmitter.class.isAssignableFrom(returnType.getParameterType())
-                || Mono.class.isAssignableFrom(returnType.getParameterType());
+                        || SseEmitter.class.isAssignableFrom(returnType.getParameterType())
+                        || Mono.class.isAssignableFrom(returnType.getParameterType());
 
         if (isFlux) {
             return false;

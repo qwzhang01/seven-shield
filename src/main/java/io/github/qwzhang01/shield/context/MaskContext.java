@@ -59,16 +59,14 @@ public class MaskContext {
      */
     private static final ThreadLocal<MaskContext> MASK_CONTEXT =
             new ThreadLocal<>();
-
-    /**
-     * Flag indicating whether masking is enabled in current thread
-     */
-    private boolean enabled = false;
-
     /**
      * Set of field names to be included in masking operations
      */
     private final Set<String> includeFields = new HashSet<>();
+    /**
+     * Flag indicating whether masking is enabled in current thread
+     */
+    private boolean enabled = false;
 
     /**
      * Starts the masking context for the current thread.

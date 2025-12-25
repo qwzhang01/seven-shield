@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 /**
  * Annotated field result record containing field, containing object,
  * annotation, and field path.
- * 
+ *
  * <p>This version uses MethodHandle for high-performance field access,
  * providing ~10x performance improvement over traditional reflection.</p>
  *
@@ -30,11 +30,13 @@ public record MaskField(
 
     /**
      * Constructor with automatic FieldAccessor creation.
-     * This constructor is convenient when you don't have a pre-created accessor.
+     * This constructor is convenient when you don't have a pre-created
+     * accessor.
      */
-    public MaskField(Field field, Object obj, boolean behest, 
+    public MaskField(Field field, Object obj, boolean behest,
                      boolean maskFlag, Mask annotation) {
-        this(field, obj, behest, maskFlag, annotation, new FieldAccessor(field));
+        this(field, obj, behest, maskFlag, annotation,
+                new FieldAccessor(field));
     }
 
     /**
@@ -75,7 +77,7 @@ public record MaskField(
     /**
      * Legacy method for backward compatibility.
      * Internally uses MethodHandle for performance.
-     * 
+     *
      * @deprecated Use {@link #getFieldValue()} instead
      */
     @Deprecated(since = "1.1.0", forRemoval = false)
@@ -91,7 +93,7 @@ public record MaskField(
     /**
      * Legacy method for backward compatibility.
      * Internally uses MethodHandle for performance.
-     * 
+     *
      * @deprecated Use {@link #setFieldValue(Object)} instead
      */
     @Deprecated(since = "1.1.0", forRemoval = false)

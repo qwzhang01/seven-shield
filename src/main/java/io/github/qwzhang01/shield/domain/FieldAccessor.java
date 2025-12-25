@@ -35,7 +35,8 @@ import java.lang.reflect.Field;
 
 /**
  * High-performance field accessor using MethodHandle instead of reflection.
- * MethodHandle provides near-native performance compared to traditional reflection.
+ * MethodHandle provides near-native performance compared to traditional
+ * reflection.
  *
  * <p>Performance comparison:
  * <ul>
@@ -49,7 +50,8 @@ import java.lang.reflect.Field;
  * @since 1.1.0
  */
 public class FieldAccessor {
-    private static final Logger log = LoggerFactory.getLogger(FieldAccessor.class);
+    private static final Logger log =
+            LoggerFactory.getLogger(FieldAccessor.class);
 
     private final Field field;
     private final String fieldName;
@@ -130,8 +132,10 @@ public class FieldAccessor {
                     "Failed to set field value: " + fieldName +
                             " on object: " + target.getClass().getSimpleName() +
                             " with value: " + value +
-                            " (Field type: " + fieldType.getSimpleName() + 
-                            ", Value type: " + (value != null ? value.getClass().getSimpleName() : "null") + ")", e);
+                            " (Field type: " + fieldType.getSimpleName() +
+                            ", Value type: " + (value != null ?
+                            value.getClass().getSimpleName() : "null") + ")",
+                    e);
         }
     }
 
@@ -172,7 +176,8 @@ public class FieldAccessor {
     }
 
     /**
-     * Sets the value with type checking and automatic primitive/wrapper conversion.
+     * Sets the value with type checking and automatic primitive/wrapper
+     * conversion.
      *
      * @param target the object to set the field value on
      * @param value  the value to set
@@ -226,15 +231,24 @@ public class FieldAccessor {
     /**
      * Checks if a primitive type and its wrapper class match.
      */
-    private boolean isPrimitiveWrapperMatch(Class<?> primitiveType, Class<?> wrapperType) {
-        if (primitiveType == int.class && wrapperType == Integer.class) return true;
-        if (primitiveType == long.class && wrapperType == Long.class) return true;
-        if (primitiveType == double.class && wrapperType == Double.class) return true;
-        if (primitiveType == float.class && wrapperType == Float.class) return true;
-        if (primitiveType == boolean.class && wrapperType == Boolean.class) return true;
-        if (primitiveType == byte.class && wrapperType == Byte.class) return true;
-        if (primitiveType == short.class && wrapperType == Short.class) return true;
-        if (primitiveType == char.class && wrapperType == Character.class) return true;
+    private boolean isPrimitiveWrapperMatch(Class<?> primitiveType,
+                                            Class<?> wrapperType) {
+        if (primitiveType == int.class && wrapperType == Integer.class)
+            return true;
+        if (primitiveType == long.class && wrapperType == Long.class)
+            return true;
+        if (primitiveType == double.class && wrapperType == Double.class)
+            return true;
+        if (primitiveType == float.class && wrapperType == Float.class)
+            return true;
+        if (primitiveType == boolean.class && wrapperType == Boolean.class)
+            return true;
+        if (primitiveType == byte.class && wrapperType == Byte.class)
+            return true;
+        if (primitiveType == short.class && wrapperType == Short.class)
+            return true;
+        if (primitiveType == char.class && wrapperType == Character.class)
+            return true;
         return false;
     }
 
@@ -243,9 +257,9 @@ public class FieldAccessor {
      */
     private boolean isWrapperType(Class<?> clazz) {
         return clazz == Integer.class || clazz == Long.class ||
-               clazz == Double.class || clazz == Float.class ||
-               clazz == Boolean.class || clazz == Byte.class ||
-               clazz == Short.class || clazz == Character.class;
+                clazz == Double.class || clazz == Float.class ||
+                clazz == Boolean.class || clazz == Byte.class ||
+                clazz == Short.class || clazz == Character.class;
     }
 
     /**
