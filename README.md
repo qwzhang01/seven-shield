@@ -44,8 +44,9 @@ A powerful, annotation-based data masking library for Spring Boot applications. 
 Add the following dependency to your `pom.xml`:
 
 ```xml
+
 <dependency>
-    <groupId>com.qw.desensitize</groupId>
+    <groupId>io.github.qwzhang01</groupId>
     <artifactId>seven-shield</artifactId>
     <version>1.0</version>
 </dependency>
@@ -54,7 +55,7 @@ Add the following dependency to your `pom.xml`:
 ### Gradle
 
 ```gradle
-implementation 'com.qw.desensitize:seven-shield:1.0'
+implementation 'io.github.qwzhang01:seven-shield:1.0'
 ```
 
 ### Requirements

@@ -45,16 +45,17 @@
 
 ```xml
 <dependency>
-    <groupId>com.qw.desensitize</groupId>
-    <artifactId>seven-shield</artifactId>
-    <version>1.0</version>
+  <groupId>io.github.qwzhang01</groupId>
+  <artifactId>seven-shield</artifactId>
+  <version>1.0</version>
 </dependency>
+
 ```
 
 ### Gradle
 
 ```gradle
-implementation 'com.qw.desensitize:seven-shield:1.0'
+implementation 'io.github.qwzhang01:seven-shield:1.0'
 ```
 
 ### 环境要求
